@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "complex.h": "c",
-        "stdio.h": "c",
-        "type_traits": "c"
-    }
-}
