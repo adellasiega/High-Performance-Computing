@@ -1,0 +1,12 @@
+\section{Implementation}
+
+The C implementation consists of three main files:
+\begin{itemize}
+    \item \texttt{main.c}, it contains the main function in which MPI is initialized, the amount of work is distributed among the MPI processes, and the computation is performed. In the end, the computation is gathered and the image is saved. The main function also takes care of the timing of the computation;
+    \item \texttt{mandelbrot.c}, in this file we define the function that computes the Mandelbrot set. This function iterates over a given range of pixels of the image and we compute the value of the Mandelbrot set for each pixel. The iteration is within a OpenMP parallel region.
+    \item \texttt{image\_utils.c}, in this file we define the function that saves the image in the PGM format;
+    \item \texttt{timing\_utils.c}, in this file we define the function that saves the timing results on a \texttt{.csv}.
+\end{itemize}
+
+
+

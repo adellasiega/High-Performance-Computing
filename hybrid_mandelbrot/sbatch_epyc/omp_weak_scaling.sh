@@ -25,11 +25,24 @@ x_R=2.0
 y_R=2.0
 I_max=255
 
+# Function to calculate the integer square root
+int_sqrt() {
+    local num=$1
+    local sqrt_result
+
+    # Calculate the square root using bc and round it to the nearest integerusing awk
+    sqrt_result=$(echo "scale=10; sqrt($num)" | bc | awk '{printf "%.0f\n", $1}')
+ 
+    echo $sqrt_result
+}
+
+
 # Run with different numbers of OpenMP threads and proportionally increased problem size
 for n_threads in 1 2 4 8 16 32 64 96 128 160 192 224 256; do
     export OMP_NUM_THREADS=$n_threads
     export OMP_PLACES=cores
-    n_x=$(($n_x_base * $n_threads))
-    n_y=$(($n_y_base * $n_threads))
+    scaled_n_threads=$(int_sqrt $n_threads)
+    n_x=$(($n_x_base * $scaled_n_threads))
+    n_y=$(($n_y_base * $scaled_n_threads))
     mpirun --map-by socket -np 1  ../src/mandelbrot $n_x $n_y $x_L $y_L $x_R $y_R $I_max ../results/omp_weak_scaling.csv
 done

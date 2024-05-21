@@ -25,10 +25,22 @@ x_R=2.0
 y_R=2.0
 I_max=255
 
+# Function to calculate the integer square root
+int_sqrt() {
+    local num=$1
+    local sqrt_result
+
+    # Calculate the square root using bc and round it to the nearest integerusing awk
+    sqrt_result=$(echo "scale=10; sqrt($num)" | bc | awk '{printf "%.0f\n", $1}')
+ 
+    echo $sqrt_result
+}
+
 # Run with different numbers of MPI tasks and proportionally increased problem size
 for ntasks in 1 2 4 8 16 32 64 96 128; do
     export OMP_NUM_THREADS=1
-    n_x=$(($n_x_base * $ntasks))
-    n_y=$(($n_y_base * $ntasks))
+    scaled_n_tasks=$(int_sqrt $ntasks)
+    n_x=$(($n_x_base * $scaled_n_tasks))
+    n_y=$(($n_y_base * $scaled_n_tasks))
     mpiexec --map-by core -n $ntasks ../src/mandelbrot $n_x $n_y $x_L $y_L $x_R $y_R $I_max ../results/mpi_weak_scaling.csv
 done
