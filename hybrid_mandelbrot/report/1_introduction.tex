@@ -2,10 +2,21 @@
 
 The goal of this assignment is to compute and visulize the \href{https://en.wikipedia.org/wiki/Mandelbrot_set}{Mandelbrot set}. The Mandelbrot set properties make this problem embarrassingly parallel, and it is a perfect candidate for a hybrid MPI/OpenMP implementation.
 
-The computation will be performed on the \href{https://orfeo-doc.areasciencepark.it/}{ORFEO} computational resource. In particular, we will take advantage of 2 nodes of the EPYC partition which consists of 8 nodes equipped with two AMD EPYC 7H12 CPUs.
-
 The analysis of the computation is done in the context of a hybrid MPI/OpenMP implementation. We will evaluate the strong scaling and the weak scaling as follows:
 \begin{itemize}
     \item MPI scaling: we will consider a single OpenMP thread per MPI process and we will increase the number of MPI processes;
     \item OpenMP scaling: we will consider a single MPI process and we will increase the number of OMP threads.
 \end{itemize}
+
+\subsection{Computational architecture}
+
+The computation will be performed on the \href{https://orfeo-doc.areasciencepark.it/}{ORFEO} cluster. In particular, we will take advantage of the nodes of the EPYC partition which consists of 8 nodes equipped with two AMD EPYC 7H12 CPUs. Each node is equipped with: 
+\begin{itemize}
+    \item 128 cores;
+    \item 256 threads;
+    \item 512 GB of RAM.
+\end{itemize}
+
+
+
+
