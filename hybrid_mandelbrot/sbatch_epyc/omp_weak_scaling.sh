@@ -15,8 +15,8 @@ module load openMPI/4.1.5/gnu/12.2.1
 make -C ../src
 
 # Base problem size
-n_x_base=400
-n_y_base=200
+n_x_base=2000
+n_y_base=2000
 
 # Set other parameters
 x_L=-2.0
