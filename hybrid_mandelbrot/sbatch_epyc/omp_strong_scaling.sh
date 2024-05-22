@@ -24,8 +24,8 @@ y_R=2.0
 I_max=255
 
 # Run with different numbers of OpenMP threads
-for n_threads in 1 2 4 8 16 32 64 96 128 160 192 224 256; do
+for n_threads in {2..64..2}; do
     export OMP_NUM_THREADS=$n_threads
     export OMP_PLACES=cores
-    mpirun --map-by node --bind-to none -np 1 ../src/mandelbrot $n_x $n_y $x_L $y_L $x_R $y_R $I_max ../results/omp_strong_scaling.csv
+    mpirun --map-by node -np 1 ../src/mandelbrot $n_x $n_y $x_L $y_L $x_R $y_R $I_max ../results/omp_strong_scaling.csv
 done

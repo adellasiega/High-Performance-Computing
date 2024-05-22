@@ -24,7 +24,7 @@ y_R=2.0
 I_max=255
 
 # Run with different numbers of MPI tasks
-for ntasks in 1 2 4 8 16 32 64 96 128; do
+for ntasks in 1 2 4 8 16 32 64 80 96 112 128; do
     export OMP_NUM_THREADS=1
     mpiexec --map-by core -n $ntasks ../src/mandelbrot $n_x $n_y $x_L $y_L $x_R $y_R $I_max ../results/mpi_strong_scaling.csv
 done

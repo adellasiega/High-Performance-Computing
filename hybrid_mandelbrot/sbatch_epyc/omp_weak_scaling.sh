@@ -38,11 +38,11 @@ int_sqrt() {
 
 
 # Run with different numbers of OpenMP threads and proportionally increased problem size
-for n_threads in 1 2 4 8 16 32 64 96 128 160 192 224 256; do
+for n_threads in {2..64..2}; do
     export OMP_NUM_THREADS=$n_threads
     export OMP_PLACES=cores
     scaled_n_threads=$(int_sqrt $n_threads)
     n_x=$(($n_x_base * $scaled_n_threads))
     n_y=$(($n_y_base * $scaled_n_threads))
-    mpirun --map-by node --bind-to none -np 1  ../src/mandelbrot $n_x $n_y $x_L $y_L $x_R $y_R $I_max ../results/omp_weak_scaling.csv
+    mpirun --map-by node -np 1  ../src/mandelbrot $n_x $n_y $x_L $y_L $x_R $y_R $I_max ../results/omp_weak_scaling.csv
 done

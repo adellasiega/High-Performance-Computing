@@ -37,7 +37,7 @@ int_sqrt() {
 }
 
 # Run with different numbers of MPI tasks and proportionally increased problem size
-for ntasks in 1 2 4 8 16 32 64 96 128; do
+for ntasks in 1 2 4 8 16 32 64 80 96 112 128; do
     export OMP_NUM_THREADS=1
     scaled_n_tasks=$(int_sqrt $ntasks)
     n_x=$(($n_x_base * $scaled_n_tasks))
