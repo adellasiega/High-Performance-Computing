@@ -12,10 +12,10 @@ module load openMPI/4.1.5/gnu/12.2.1
 echo "Processes,Size,Latency" > reduce1_core_thin.csv
 
 # Numero di ripetizioni per ottenere una media
-repetitions=10000
+reps=10000
 
 # Ciclo esterno per il numero di processori
-for processes in {2..48..2}
+for procs in {2..48..2}
 do
     # Ciclo interno per la dimensione del messaggio da 2^1 a 2^20
     for size_power in {1..20}
@@ -24,10 +24,9 @@ do
         size=$((2**size_power))
 
         # Esegui osu_reduce con numero di processi, dimensione fissa e numero di ripetizioni su due nodi
-        result_reduce=$(mpirun --map-by core -np $processes --mca coll_tuned_use_dynamic_rules true --mca coll_tuned_reduce_algorithm 1 osu_reduce -m $size -x $repetitions -i $repetitions | tail -n 1 | awk '{print $2}')
+        result=$(mpirun --map-by core -np $procs --mca coll_tuned_use_dynamic_rules true --mca coll_tuned_reduce_algorithm 1 osu_reduce -m $size -x $reps -i $reps | tail -n 1 | awk '{print $2}')
 	
-	echo "$processes, $size, $result_reduce"
         # Scrivi i risultati nel file CSV
-        echo "$processes,$size,$result_reduce" >> reduce1_core_thin.csv
+        echo "$procs,$size,$result" >> reduce1_core_thin.csv
     done
 done

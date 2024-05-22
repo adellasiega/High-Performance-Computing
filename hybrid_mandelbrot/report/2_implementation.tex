@@ -14,7 +14,7 @@ Let us present a brief summary of C implementation:
 
 In order to distribute the work among the MPI processes we decided to adopt a sequential fashion.
 
-Suppose to have $N$ processes and $M = n_x \times n_y$ pixels to compute. The root process divides the one-dimensional array in $N$ blocks of approximately $M/N$ pixels each. Obviously, the last block may contain less pixels if $M$ is not divisible by $N$ since the remainder is distributed starting from the first process, with respect to the rank. The first process is assigned the first block of pixels, the second process the second block, and so on. The last process is assigned the last block of pixels. The gathering of the results is done by the root process, which calls \texttt{MPI\_Gatherv} to collect the results from all the other processes and saves the image.
+Suppose to have $P$ processes and $N = n_x \times n_y$ pixels to compute. The root process divides the one-dimensional array in $M$ blocks of approximately $N/M$ pixels each. Obviously, the last block may contain less pixels if $M$ is not divisible by $N$ since the remainder is distributed starting from the first process, with respect to the rank. The first process is assigned the first block of pixels, the second process the second block, and so on. The last process is assigned the last block of pixels. The gathering of the results is done by the root process, which calls \texttt{MPI\_Gatherv} to collect the results from all the other processes and saves the image.
 
 \subsection{OpenMP parallelization}
 
@@ -28,21 +28,21 @@ Let us define the following setup:
     \item MPI strong scaling: we fix $T=1$,
         $$n_x = 10000$$
         $$n_y = 10000$$
-    and $P = 1, 2, 4, 8, 16, 32, 64, 96, 128$.
+    and $P = 1, 2, 4, 8, 16, 32, 64, 80, 96, 112, 128$.
     \item MPI weak scaling: we fix $T=1$, 
         $$n_x = 2000 \times \texttt{round} \{\sqrt{P}\}$$
         $$n_y = 2000 \times \texttt{round}\{\sqrt{P}\}$$
-    for $P = 1, 2, 4, 8, 16, 32, 64, 96, 128$;
+    for $P = 1, 2, 4, 8, 16, 32, 64, 80, 96, 112, 128$;
     \item OMP strong scaling: we fix $P=1$,
         $$n_x = 10000$$
         $$n_y = 10000$$
-    for $T = 1, 2, 4, 8, 16, 32, 64, 96, 128, 160, 192, 224, 256$;
+    for $T = 2, 4, 6, 8, ... 62, 64$;
     \item OpenMP weak scaling: we fix $P=1$
         $$n_x = 2000 \times \texttt{round}\{\sqrt{T}\}$$
         $$n_y = 2000 \times \texttt{round}\{\sqrt{T}\}$$
-    for $T = 1, 2, 4, 8, 16, 32, 64, 96, 128, 160, 192, 224, 256$.
+    for $T = 2, 4, 6, 8, ... 62, 64$.
 \end{itemize}.
 
 For the MPI scaling, we set \texttt{--map-by core} since we want that, after that a node is selected, each process spawns in its cores.
 
-For the OpenMP scaling, we set \texttt{--map-by node} since we are using a process on a single node and \texttt{--bind-to none} beacuse we are not interested in binding threads to sockets or cores. Lastly,set \texttt{OMP\_PLACES=cores} to specify that each thread is executed on a core.
+For the OpenMP scaling, we set \texttt{--map-by socket} since we are using a process on a single node. Lastly,set \texttt{OMP\_PLACES=cores} to specify that each thread is executed on a core.
