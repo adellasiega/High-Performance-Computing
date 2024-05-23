@@ -1,0 +1,9 @@
+\section{Conclusions}
+
+This analysis of MPI collective operations, focusing on broadcast and reduce, highlights key performance insights influenced by various algorithms and configurations.
+
+For broadcast operations, latency shows a complex relationship with the number of processes when the message size is fixed, notably increasing at 16 and 32 processes without a clear explanation. The binary tree algorithm performs best with large messages due to its efficient distribution method, while the linear algorithm scales poorly as it sequentially sends messages to each process. Mapping policy generally has minimal impact, except for the chain algorithm, which benefits from the map by core policy.
+
+In reduce operations, the chain algorithm struggles with small messages due to its high number of reduction operations per node, whereas the linear algorithm performs better in these cases. With large messages, latency scales linearly with the number of processes, and the binary tree algorithm again shows superior performance. Mapping has little impact on large messages for linear and binary algorithms, but the chain algorithm performs better with the map by node policy.
+
+Overall, latency scales linearly with message size when the number of processes is fixed. The binary tree algorithm consistently offers the best performance for both broadcast and reduce operations. The linear model used in the analysis helped clarify the dependencies between latency, message size, and the number of processes, supporting these findings. These insights can guide optimization and tuning of parallel applications using MPI.
