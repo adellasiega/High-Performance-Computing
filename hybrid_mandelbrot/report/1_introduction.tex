@@ -1,14 +1,20 @@
 \section{Introduction}
 
-The goal of this assignment is to compute and visulize the \href{https://en.wikipedia.org/wiki/Mandelbrot_set}{Mandelbrot set}. The Mandelbrot set properties make this problem embarrassingly parallel, and it is a perfect candidate for a hybrid MPI/OpenMP implementation.
+The goal of this assignment is to compute and visualize the \href{https://en.wikipedia.org/wiki/Mandelbrot_set}{Mandelbrot set}.
 
-The analysis of the computation is done in the context of a hybrid MPI/OpenMP implementation. We will evaluate the strong scaling and the weak scaling as follows:
-\begin{itemize}
-    \item MPI scaling: we will consider a single OpenMP thread per MPI process and we will increase the number of MPI processes;
-    \item OpenMP scaling: we will consider a single MPI process and we will increase the number of OMP threads.
-\end{itemize}
+The properties of the Mandelbrot set make this problem an ideal candidate for parallel computing, as it is embarrassingly parallel. This characteristic allows each point in the complex plane to be computed independently of the others, making it a perfect candidate for a hybrid implementation using both the Message Passing Interface (MPI) and Open Multi-Processing (OpenMP).
 
-The computation will be performed on the \href{https://orfeo-doc.areasciencepark.it/}{ORFEO} cluster. In particular, we will take advantage of the nodes of the EPYC partition which consists of 8 nodes equipped with two AMD EPYC 7H12 CPUs. Each node is equipped with 128 cores and 512 GB of RAM.
+To assess the performance of our implementation, we will evaluate both strong and weak scaling. Strong scaling involves measuring how the solution time varies with a fixed total problem size as we increase the number of processors. Weak scaling, on the other hand, involves measuring how the solution time changes as we increase both the number of processors and the total problem size proportionally.
 
+For this evaluation, we will consider the following scenarios.
 
+\begin{enumerate}
+\item \textbf{MPI scaling}: In this scenario, we will fix the number of OpenMP threads to one per MPI process and increase the number of MPI processes. This approach allows us to evaluate how well the computation scales when distributing tasks across multiple processes, each running on separate processors or nodes.
+\item \textbf{OpenMP scaling}: Here, we will fix the number of MPI processes to one and increase the number of OpenMP threads. This scenario will help us understand how the computation scales when leveraging multiple threads within a single process, taking advantage of multi-core processors.
+\end{enumerate}
 
+By conducting these scaling experiments, we aim to gain insights into the efficiency and performance of our hybrid MPI and OpenMP implementation on the ORFEO cluster. This analysis will not only help us optimize the computation of the Mandelbrot set but also provide valuable information on how to effectively utilize high-performance computing resources for similar parallelizable problems.
+
+\subsection{Architecture of computational resources}
+
+In this project, we will implement a hybrid MPI and OpenMP solution to compute the Mandelbrot set. By leveraging the combined strengths of MPI and OpenMP, we can efficiently distribute the computation workload across multiple nodes and cores within the ORFEO cluster, specifically utilizing the EPYC partition. This partition comprises 8 nodes, each equipped with two AMD EPYC 7H12 CPUs. Each CPU contains two sockets with 64 cores each, providing substantial computational power. The nodes are interconnected via an Infinity Fabric network with a theoretical bandwidth of 96 Gb/s, facilitating high-speed data transfer between nodes. Each processor is organized into 8 Core Complex Dies (CCDs), with each CCD containing 2 Core Complexes (CCXs), and each CCX comprising 4 cores with 16 MB of L3 cache.

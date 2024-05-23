@@ -24,7 +24,7 @@ do
         size=$((2**size_power))
 
         # Esegui osu_reduce con numero di processi, dimensione fissa e numero di ripetizioni su due nodi
-        result=$(mpirun --map-by sockets -np $procs --mca coll_tuned_use_dynamic_rules true --mca coll_tuned_reduce_algorithm 4 osu_reduce -m $size -x $reps -i $reps | tail -n 1 | awk '{print $2}')
+        result=$(mpirun --map-by core -np $procs --mca coll_tuned_use_dynamic_rules true --mca coll_tuned_reduce_algorithm 4 osu_reduce -m $size -x $reps -i $reps | tail -n 1 | awk '{print $2}')
 	
         # Scrivi i risultati nel file CSV
         echo "$procs,$size,$result" >> reduce4_core_thin.csv

@@ -27,5 +27,5 @@ I_max=255
 for n_threads in {2..64..2}; do
     export OMP_NUM_THREADS=$n_threads
     export OMP_PLACES=cores
-    mpirun --map-by node -np 1 ../src/mandelbrot $n_x $n_y $x_L $y_L $x_R $y_R $I_max ../results/omp_strong_scaling.csv
+    mpirun --map-by socket --bind-to none -np 1 ../src/mandelbrot $n_x $n_y $x_L $y_L $x_R $y_R $I_max ../results/omp_strong_scaling.csv
 done

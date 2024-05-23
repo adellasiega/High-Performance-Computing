@@ -1,0 +1,21 @@
+\section{Conclusion}
+
+Within this assignment I explored a parallel approach for computing the Mandelbrot set, developing an hybrid MPI+OpenMP code.
+The designed solution seems to scale as expected and the results are consistent with the theoretical expectations.
+However there are some important considerations to be made:
+\begin{itemize}
+    \item The OpenMP strong scaling shows a substantial discrepancy between the ideal and the actual strong scaling. This can be explained by the following reasons:
+    \begin{enumerate}
+        \item the workload is unbalanced among the threads. Some regions of the Mandelbrot set require more iterations to be computed than others. This is due to the fact that the Mandelbrot set is a fractal and the convergence rate is different for each point;
+        \item the overhead of the OpenMP parallelization is larger than the computation time. This is due to the fact that the OpenMP parallelization is not efficient for small workloads. The overhead of the parallelization is larger than the computation time. Probably, this implemenation of considered not large enough images to be computed in parallel.
+        \item the OpenMP parallelization performance could suffer from false sharing. In fact, we used a global array of pixels to store the results of the computation. False sharing occurs when two or more threads write to different variables that reside on the same cache line. This can lead to cache coherence traffic between the cores, which can degrade the performance. 
+    \end{enumerate}
+    \item The MPI scaling seems to scale as expected. In particular, the use of collective operations, such as \texttt{MPI\_Gatherv}, allows to gather the results in a more efficient way than using point-to-point communication.
+\end{itemize}
+
+Some possible improvements to the code could be:
+\begin{itemize}
+    \item subdividing the image in a more balanced way among the threads. This could be done by using a more sophisticated partitioning algorithm. For example, we could use a space-filling curve to divide the image in a more balanced way. However, this could make the implemenation very complex;
+    \item exploiting some symmetry properties of the Mandelbrot set. The Mandelbrot set is symmetric with respect to the real axis. This means that we could compute only the upper half of the image and then mirror the results to obtain the lower half. This could reduce the amount of work to be done;
+\end{itemize}
+    

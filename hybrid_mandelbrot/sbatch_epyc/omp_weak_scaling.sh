@@ -44,5 +44,5 @@ for n_threads in {2..64..2}; do
     scaled_n_threads=$(int_sqrt $n_threads)
     n_x=$(($n_x_base * $scaled_n_threads))
     n_y=$(($n_y_base * $scaled_n_threads))
-    mpirun --map-by node -np 1  ../src/mandelbrot $n_x $n_y $x_L $y_L $x_R $y_R $I_max ../results/omp_weak_scaling.csv
+    mpirun --map-by scocket --bind-to none -np 1  ../src/mandelbrot $n_x $n_y $x_L $y_L $x_R $y_R $I_max ../results/omp_weak_scaling.csv
 done

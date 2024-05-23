@@ -1,7 +1,14 @@
 \section{Implementation}
 
-The encoding of the problem is straightforward. An image of the Mandelbrot set is a two-dimensional array of pixels. Each pixel corresponds to a point in the complex plane. However, the image is stored as a one-dimensional array of pixels. Each pixel is stored as a \texttt{unsigned char}, its maximum value can be 255.
+\subsection{Encoding}
+The encoding of the problem is straightforward. An image of the Mandelbrot set is a two-dimensional array of pixels. Each pixel corresponds to a point in the complex plane. However, the image is stored as a one-dimensional array of pixels. Each pixel is stored as a \texttt{unsigned char}, its maximum value can be 255. This means that the maximum iteration that can be reached on a point of the Mandelbrot is 255. A scale of gray is used to represent the points of the Mandelbrot set. For each pixel
+we will assing a value based onn wether the corresponding point belongs to the mandelbrot set: 
+\begin{itemize}
+    \item if the point belongs to the Mandelbrot set, the pixel is assigned the value 0 and the pixel will be black;
+    \item if the point does not belong to the Mandelbrot set, the pixel is assigned the iteration count at which the point exited the circle of radius 2. The pixel will be assigned a value between 1 and 255 and the pixel will be colored according to the gray scale.
+\end{itemize}
 
+\subsection{C implementation}
 Let us present a brief summary of C implementation:
 \begin{itemize}
     \item \texttt{main.c}, it contains the main function in which MPI is initialized, the amount of work is distributed among the MPI processes, and the computation is performed. In the end, the computation is gathered and the image is saved. The main function also takes care of the timing of the computation;
@@ -9,6 +16,7 @@ Let us present a brief summary of C implementation:
     \item \texttt{image\_utils.c}, in this file we define the function that saves the image in the desired PGM format;
     \item \texttt{timing\_utils.c}, here the function that saves the timing results on a \texttt{.csv} file.
 \end{itemize}
+
 
 \subsection{MPI parallelization}
 
@@ -22,27 +30,29 @@ The OpenMP parallelization is performed in \texttt{compute\_mandelbrot\_set} in 
 
 \subsection{Experimental setup}
 
-For both the MPI and OpenMP scaling, we will consider the strong scaling and the weak scaling. The strong scaling consists in fixing the dimension $n_x, n_y$ of the Mandelbrot image and increasing the number $P/T$ of processes/threads. While, the weak scaling consists in fixing the amount of work per process/thread and increasing the number of processes/threads.
+For what concerns the timing of the computation, we will use the \texttt{MPI\_Wtime} function to measure the time spent in the computation of the Mandelbrot set. In particular, For each run, we start the timer after the MPI initialization and stop it right after the gathering of the results. In our measurments we do not include the time required to save the image on a file since we are not interested in the I/O performance.
+
+Now, for what concerns the scaling analysis, we will consider the following setup. For both the MPI and OpenMP scaling, we will consider the strong scaling and the weak scaling. The strong scaling consists in fixing the dimension $n_x, n_y$ of the Mandelbrot image and increasing the number $P/T$ of processes/threads. While, the weak scaling consists in fixing the amount of work per process/thread and increasing the number of processes/threads.
 Let us define the following setup:
 \begin{itemize}
-    \item MPI strong scaling: we fix $T=1$,
-        $$n_x = 10000$$
-        $$n_y = 10000$$
+    \item \textbf{MPI strong scaling}: we fix $T=1$,
+        $$n_x = 4096$$
+        $$n_y = 4096$$
     and $P = 1, 2, 4, 8, 16, 32, 64, 80, 96, 112, 128$.
-    \item MPI weak scaling: we fix $T=1$, 
-        $$n_x = 2000 \times \texttt{round} \{\sqrt{P}\}$$
-        $$n_y = 2000 \times \texttt{round}\{\sqrt{P}\}$$
+    \item \textbf{MPI weak scaling}: we fix $T=1$, 
+        $$n_x = 1024 \times \texttt{round} \{\sqrt{P}\}$$
+        $$n_y = 1024 \times \texttt{round}\{\sqrt{P}\}$$
     for $P = 1, 2, 4, 8, 16, 32, 64, 80, 96, 112, 128$;
-    \item OMP strong scaling: we fix $P=1$,
-        $$n_x = 10000$$
-        $$n_y = 10000$$
+    \item \textbf{OpenMP strong scaling}: we fix $P=1$,
+        $$n_x = 4096$$
+        $$n_y = 4096$$
     for $T = 2, 4, 6, 8, ... 62, 64$;
-    \item OpenMP weak scaling: we fix $P=1$
-        $$n_x = 2000 \times \texttt{round}\{\sqrt{T}\}$$
-        $$n_y = 2000 \times \texttt{round}\{\sqrt{T}\}$$
+    \item \textbf{OpenMP weak scaling}: we fix $P=1$
+        $$n_x = 1024 \times \texttt{round}\{\sqrt{T}\}$$
+        $$n_y = 1024 \times \texttt{round}\{\sqrt{T}\}$$
     for $T = 2, 4, 6, 8, ... 62, 64$.
 \end{itemize}.
 
 For the MPI scaling, we set \texttt{--map-by core} since we want that, after that a node is selected, each process spawns in its cores.
 
-For the OpenMP scaling, we set \texttt{--map-by socket} since we are using a process on a single node. Lastly,set \texttt{OMP\_PLACES=cores} to specify that each thread is executed on a core.
+For the OpenMP scaling, we used the default option \texttt{--map-by socket} since we are using a single process and a single socket which has 64 cores. Lastly,we set \texttt{OMP\_PLACES=cores} to minimize resource contention: assigning threads to distinct cores helps to minimize contention for CPU resources, ensuring that each thread has dedicated compute power
