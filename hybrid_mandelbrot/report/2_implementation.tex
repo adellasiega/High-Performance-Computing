@@ -1,8 +1,7 @@
 \section{Implementation}
 
 \subsection{Encoding}
-The encoding of the problem is straightforward. An image of the Mandelbrot set is a two-dimensional array of pixels. Each pixel corresponds to a point in the complex plane. However, the image is stored as a one-dimensional array of pixels. Each pixel is stored as a \texttt{unsigned char}, its maximum value can be 255. This means that the maximum iteration that can be reached on a point of the Mandelbrot is 255. A scale of gray is used to represent the points of the Mandelbrot set. For each pixel
-we will assing a value based onn wether the corresponding point belongs to the mandelbrot set: 
+The encoding of the problem is straightforward. An image of the Mandelbrot set is a two-dimensional array of pixels. Each pixel corresponds to a point in the complex plane. However, the image is stored as a one-dimensional array of pixels. Each pixel is stored as a \texttt{unsigned char}, its maximum value can be 255. This means that the maximum iteration that can be reached on a point of the Mandelbrot is 255. A scale of gray is used to represent the points of the Mandelbrot set. For each pixel we will assign a value based onn wether the corresponding point belongs to the mandelbrot set: 
 \begin{itemize}
     \item if the point belongs to the Mandelbrot set, the pixel is assigned the value 0 and the pixel will be black;
     \item if the point does not belong to the Mandelbrot set, the pixel is assigned the iteration count at which the point exited the circle of radius 2. The pixel will be assigned a value between 1 and 255 and the pixel will be colored according to the gray scale.
@@ -30,7 +29,7 @@ The OpenMP parallelization is performed in \texttt{compute\_mandelbrot\_set} in 
 
 \subsection{Experimental setup}
 
-For what concerns the timing of the computation, we will use the \texttt{MPI\_Wtime} function to measure the time spent in the computation of the Mandelbrot set. In particular, For each run, we start the timer after the MPI initialization and stop it right after the gathering of the results. In our measurments we do not include the time required to save the image on a file since we are not interested in the I/O performance.
+For what concerns the timing of the computation, we will use the \texttt{MPI\_Wtime} function to measure the time spent in the computation of the Mandelbrot set. In particular, For each run, we start the timer after the MPI initialization and stop it right after the gathering of the results. In our measures we do not include the time required to save the image on a file since we are not interested in the I/O performance.
 
 Now, for what concerns the scaling analysis, we will consider the following setup. For both the MPI and OpenMP scaling, we will consider the strong scaling and the weak scaling. The strong scaling consists in fixing the dimension $n_x, n_y$ of the Mandelbrot image and increasing the number $P/T$ of processes/threads. While, the weak scaling consists in fixing the amount of work per process/thread and increasing the number of processes/threads.
 Let us define the following setup:
@@ -55,4 +54,4 @@ Let us define the following setup:
 
 For the MPI scaling, we set \texttt{--map-by core} since we want that, after that a node is selected, each process spawns in its cores.
 
-For the OpenMP scaling, we used the default option \texttt{--map-by socket} since we are using a single process and a single socket which has 64 cores. Lastly,we set \texttt{OMP\_PLACES=cores} to minimize resource contention: assigning threads to distinct cores helps to minimize contention for CPU resources, ensuring that each thread has dedicated compute power
+For the OpenMP scaling, we used the default option \texttt{--map-by socket} since we are using a single process and a single socket which has 64 cores. Lastly, we set \texttt{OMP\_PLACES=cores} to minimize resource contention: assigning threads to distinct cores helps to minimize contention for CPU resources, ensuring that each thread has dedicated compute power

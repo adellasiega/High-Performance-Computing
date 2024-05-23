@@ -1,13 +1,13 @@
-\section{Implementation}
+\section{Experimental setup}
 
 In this section we discuss how the OSU benchmark tool is used to evaluate the performance of the broadcast and reduce operations. 
 
 For each operation, we vary the following parameters:
 \begin{itemize}
-    \item \textbf{algorithm}, the algorithm used to perform the operation;
+    \item \textbf{algorithm}, the algorithm used to perform the colective operation;
     \item \textbf{message size}, the size of the message that is sent. It is measured in \texttt{MPI\_CHAR} unit (1 byte). We will range from $2^1$ byte to $2^{20}$. We choose this range in order to saturate the osu benchmark capabilities. In fact the maximum message size that can be sent is $1MB$ which is equivalent to $2^{20}$ bytes. 
     \item \textbf{number of processes}, the number of processes that are involved in the operation. This parameter will range from 2 to 48 by step 2. This choice is due to the fact that, according to the THIN architecture, the maximum number of processes that can be used is 48;
-    \item \textbf{\texttt{--map-by}}, the mapping of the processes to the hardware. We will consider the following options: \texttt{socket}, \texttt{core};
+    \item \textbf{map by}, the mapping of the processes to the hardware. We will consider the following options: \texttt{socket}, \texttt{core};
 \end{itemize}
 
 The result is the latency and it is measured in microseconds. 

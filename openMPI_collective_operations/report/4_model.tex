@@ -7,7 +7,7 @@ Let's consider the broadcast operation with linear algorithm and mapping of the 
 The baseline model determined by the collected data is the following.
 
 \begin{equation}
-    L = \beta_0 P + \beta_1 Size
+    Latency = \beta_0 Processes + \beta_1 Size
 \end{equation}
 
 \begin{table}[htbp]
@@ -32,7 +32,7 @@ By applying some transformations to the data, we can improve the model.
 Let's consider the following improved model.
 
 \begin{equation}
-    \log_{2}L = \beta_0 P + \beta_1 \log_{2} S
+    \log_{2}Latency = \beta_0 Processes + \beta_1 \log_{2} Size
 \end{equation}
 
 \begin{table}[htbp]

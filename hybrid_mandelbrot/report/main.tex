@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 
 %Packages
+\usepackage{titling}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{listings}
@@ -21,12 +22,30 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
-\author{Alessandro Della Siega}
+\author{Alessandro Della Siega \\ University of Trieste}
 \date{May 2024}
 \title{The Mandelbrot set \\ Hybrid MPI/OpenMP implementation}
 
+\pretitle{
+    \begin{center}
+    \includegraphics[width=0.5\textwidth]{..}\par\vspace{1cm}
+    \Huge
+}
+\posttitle{
+    \end{center}
+}
+
 \begin{document}
+
 \maketitle
+
+%insert an image in the first page
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{../images/mandelbrot.png}
+\caption{Rendering of the Mandelbrot set}
+\end{figure}
+
 
 \include{1_introduction}
 \include{2_implementation}
