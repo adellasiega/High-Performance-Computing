@@ -1,15 +1,27 @@
 # High Performance Computing 
 
-This repository contains code and resources related to high-performance computing projects.
+This repository contains code and resources related to High-Performance Computing projects. The project used the computational resource of ORFEO cluster.
 
 ## Contents
-- Hybrid OpenMP+MPI Mandelbrot set implementation and analysis
+1. `hybrid_mandelbrot`: OpenMP+MPI Mandelbrot set implementation and analysis
+    - `src`: C source code with Makefile for compiling
+    - `images`: graphs and rendering of the set
+    - `report`: tex files for the report
+    - `results`: csv files containing strong and weak scaling timing measures
+    - `sbatch_epyc`: SLURM job files for EPYC partition
 
-- MPI collective operations analysis
 
-- Reports of the assignments
+2. `openMPI_collective_operations`: analysis of broadcast and reduce operations
+    - `bcast`: csv files containing bcast timing measures
+    - `plots`: plots of the data analysis on both bcast and reduce
+    - `reduce`: csv files containing reduce timing measures
+    - `report`: tex files for the report
+    - `sbatch_thin`: SLURM job files for THIN partition
+    - `.ipynb`: jupyter notebooks for EDA and linear model
+
+3. `pdf` files of the two projects
 
 ## Author
 Alessandro Della Siega
 
-University of Trieste
+May 2024, University of Trieste
