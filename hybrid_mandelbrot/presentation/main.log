@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.22)  29 MAY 2024 19:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.3.22)  29 MAY 2024 21:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -966,6 +966,17 @@ Package pdftex.def Info: ../images/process_subdivision.png  used on input line
  [4
 
  <../images/process_subdivision.png>]
+Overfull \hbox (6.34845pt too wide) detected at line 134
+\OT1/mathkerncmss/m/sl/10.95 n[] \OT1/cmss/m/n/10.95 = \OT1/mathkerncmss/m/sl/1
+0.95 n[] \OT1/cmss/m/n/10.95 = 1024 \OMS/cmsy/m/n/10.95 ^^B []f[]g
+ []
+
+
+Overfull \hbox (7.36086pt too wide) detected at line 134
+\OT1/mathkerncmss/m/sl/10.95 n[] \OT1/cmss/m/n/10.95 = \OT1/mathkerncmss/m/sl/1
+0.95 n[] \OT1/cmss/m/n/10.95 = 1024 \OMS/cmsy/m/n/10.95 ^^B []f[]g
+ []
+
 [5
 
 ] [6
@@ -975,16 +986,16 @@ Package pdftex.def Info: ../images/process_subdivision.png  used on input line
 File: ../images/mpi_strong_scaling.png Graphic file (type png)
 <use ../images/mpi_strong_scaling.png>
 Package pdftex.def Info: ../images/mpi_strong_scaling.png  used on input line 1
-38.
+54.
 (pdftex.def)             Requested size: 153.64493pt x 115.23296pt.
 <../images/mpi_strong_scaling_speedup.png, id=184, 462.528pt x 346.896pt>
 File: ../images/mpi_strong_scaling_speedup.png Graphic file (type png)
 <use ../images/mpi_strong_scaling_speedup.png>
 Package pdftex.def Info: ../images/mpi_strong_scaling_speedup.png  used on inpu
-t line 138.
+t line 154.
 (pdftex.def)             Requested size: 153.64493pt x 115.23296pt.
 
-Overfull \vbox (23.73724pt too high) detected at line 138
+Overfull \vbox (23.73724pt too high) detected at line 154
  []
 
 [7
@@ -993,17 +1004,17 @@ Overfull \vbox (23.73724pt too high) detected at line 138
 <../images/mpi_weak_scaling.png, id=213, 462.528pt x 346.896pt>
 File: ../images/mpi_weak_scaling.png Graphic file (type png)
 <use ../images/mpi_weak_scaling.png>
-Package pdftex.def Info: ../images/mpi_weak_scaling.png  used on input line 150
+Package pdftex.def Info: ../images/mpi_weak_scaling.png  used on input line 166
 .
 (pdftex.def)             Requested size: 153.64493pt x 115.23296pt.
 <../images/mpi_weak_scaling_speedup.png, id=214, 462.528pt x 346.896pt>
 File: ../images/mpi_weak_scaling_speedup.png Graphic file (type png)
 <use ../images/mpi_weak_scaling_speedup.png>
 Package pdftex.def Info: ../images/mpi_weak_scaling_speedup.png  used on input 
-line 150.
+line 166.
 (pdftex.def)             Requested size: 153.64493pt x 115.23296pt.
 
-Overfull \vbox (23.73724pt too high) detected at line 150
+Overfull \vbox (23.73724pt too high) detected at line 166
  []
 
 [8
@@ -1013,35 +1024,35 @@ Overfull \vbox (23.73724pt too high) detected at line 150
 File: ../images/omp_strong_scaling.png Graphic file (type png)
 <use ../images/omp_strong_scaling.png>
 Package pdftex.def Info: ../images/omp_strong_scaling.png  used on input line 1
-62.
+78.
 (pdftex.def)             Requested size: 153.64493pt x 115.23296pt.
 <../images/omp_strong_scaling_speedup.png, id=243, 462.528pt x 346.896pt>
 File: ../images/omp_strong_scaling_speedup.png Graphic file (type png)
 <use ../images/omp_strong_scaling_speedup.png>
 Package pdftex.def Info: ../images/omp_strong_scaling_speedup.png  used on inpu
-t line 162.
+t line 178.
 (pdftex.def)             Requested size: 153.64493pt x 115.23296pt.
 
-Overfull \vbox (23.73724pt too high) detected at line 162
+Overfull \vbox (23.73724pt too high) detected at line 178
  []
 
 [9
 
  <../images/omp_strong_scaling.png> <../images/omp_strong_scaling_speedup.png>]
-<../images/omp_weak_scaling.png, id=271, 462.528pt x 346.896pt>
+<../images/omp_weak_scaling.png, id=272, 462.528pt x 346.896pt>
 File: ../images/omp_weak_scaling.png Graphic file (type png)
 <use ../images/omp_weak_scaling.png>
-Package pdftex.def Info: ../images/omp_weak_scaling.png  used on input line 173
+Package pdftex.def Info: ../images/omp_weak_scaling.png  used on input line 189
 .
 (pdftex.def)             Requested size: 153.64493pt x 115.23296pt.
-<../images/omp_weak_scaling_speedup.png, id=272, 462.528pt x 346.896pt>
+<../images/omp_weak_scaling_speedup.png, id=273, 462.528pt x 346.896pt>
 File: ../images/omp_weak_scaling_speedup.png Graphic file (type png)
 <use ../images/omp_weak_scaling_speedup.png>
 Package pdftex.def Info: ../images/omp_weak_scaling_speedup.png  used on input 
-line 173.
+line 189.
 (pdftex.def)             Requested size: 153.64493pt x 115.23296pt.
 
-Overfull \vbox (23.73724pt too high) detected at line 173
+Overfull \vbox (23.73724pt too high) detected at line 189
  []
 
 [10
@@ -1064,11 +1075,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 24675 strings out of 480236
- 493718 string characters out of 5895675
- 735084 words of memory out of 5000000
- 42094 multiletter control sequences out of 15000+600000
- 477112 words of font info for 57 fonts, out of 8000000 for 9000
+ 24680 strings out of 480236
+ 493786 string characters out of 5895675
+ 736084 words of memory out of 5000000
+ 42099 multiletter control sequences out of 15000+600000
+ 477406 words of font info for 58 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  128i,14n,122p,384b,653s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
@@ -1083,7 +1094,7 @@ ublic/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /symbols/msbm10.pfb>
-Output written on main.pdf (11 pages, 350785 bytes).
+Output written on main.pdf (11 pages, 351250 bytes).
 PDF statistics:
  382 PDF objects out of 1000 (max. 8388607)
  316 compressed objects within 4 object streams

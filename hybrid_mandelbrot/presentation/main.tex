@@ -101,34 +101,50 @@
 \begin{frame}
     \frametitle{Experimental setup}
 
-    \begin{itemize}
-        \item \textbf{MPI strong scaling}: we fix $T=1$,
-            $$n_x = n_y = 4096$$
-        and $P = 1, 2, 4, 8, 16, 32, 64, 80, 96, 112, 128$.
-        \item \textbf{MPI weak scaling}: we fix $T=1$, 
-            $$n_x = n_y = 1024 \times \texttt{round} \{\sqrt{P}\}$$
-        for $P = 1, 2, 4, 8, 16, 32, 64, 80, 96, 112, 128$;
-        \item \textbf{OpenMP strong scaling}: we fix $P=1$,
-            $$n_x = n_y = 4096$$
-        for $T = 2, 4, 6, 8, ... 62, 64$;
-        \item \textbf{OpenMP weak scaling}: we fix $P=1$
-            $$n_x = n_y = 1024 \times \texttt{round}\{\sqrt{T}\}$$
-        for $T = 2, 4, 6, 8, ... 62, 64$.
-    \end{itemize}.
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \center
+
+            \textbf{MPI scaling}
+            
+            Set $T=1$ and vary $P = 1,2,4,8, \dots, 112, 128$
+
+            \begin{itemize}
+                \item strong scaling: $$n_x = n_y = 4096$$
+                \item weak scaling: $$n_x = n_y = 1024 \times \texttt{round} \{\sqrt{P}\}$$
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{0.5\textwidth}
+            \center
+            \textbf{OpenMP scaling}
+            
+            Set $P=1$ and vary $T = 2,4,6,8, \dots, 62,64$
+            
+            \begin{itemize}
+                \item strong scaling: $$n_x = n_y = 4096$$
+                \item weak scaling:
+                $$n_x = n_y = 1024 \times \texttt{round} \{\sqrt{T}\}$$
+            \end{itemize}
+
+        \end{column}
+    
+    \end{columns}
+
 \end{frame}
 
 %%%%%%%%%%% SLIDE %%%%%%%%%%%
 \begin{frame}
     \frametitle{Other parameters}
         \begin{itemize}
-            \item For MPI, we set \texttt{--map-by core}
-            \item For OpenMP, we set \texttt{OMP\_PLACES=cores}
+            \item For MPI, we set \texttt{--map-by core} and \texttt{--bind-to socket}
+            \item For OpenMP, we set \texttt{OMP\_PLACES=cores} and no binding policy.
         \end{itemize}
 \end{frame}
 
 %%%%%%%%%%% SLIDE %%%%%%%%%%%
 \begin{frame}
-    \frametitle{MPI strong scaling results}
+    \frametitle{MPI \textbf{strong} scaling results}
     \begin{figure}
         \centering
         \includegraphics[width=0.5\textwidth]{../images/mpi_strong_scaling.png}
@@ -140,7 +156,7 @@
 
 %%%%%%%%%%% SLIDE %%%%%%%%%%%
 \begin{frame}
-    \frametitle{MPI weak scaling results}
+    \frametitle{MPI \textbf{weak} scaling results}
     \begin{figure}
         \centering
         \includegraphics[width=0.5\textwidth]{../images/mpi_weak_scaling.png}
@@ -152,7 +168,7 @@
 
 %%%%%%%%%%% SLIDE %%%%%%%%%%%
 \begin{frame}
-    \frametitle{OpenMP strong scaling results}
+    \frametitle{OpenMP \textbf{strong} scaling results}
     \begin{figure}
         \centering
         \includegraphics[width=0.5\textwidth]{../images/omp_strong_scaling.png}
@@ -163,7 +179,7 @@
 
 %%%%%%%%%%% SLIDE %%%%%%%%%%%
 \begin{frame}
-    \frametitle{OpenMP weak scaling results}
+    \frametitle{OpenMP \textbf{weak} scaling results}
     \begin{figure}
         \centering
         \includegraphics[width=0.5\textwidth]{../images/omp_weak_scaling.png}
@@ -176,11 +192,24 @@
 \begin{frame}
     \frametitle{Conclusions}
     \begin{itemize}
-        \item MPI strong scaling: the speedup is almost linear up to 64 processes.
-        \item MPI weak scaling: the speedup is almost linear up to 64 processes.
-        \item OpenMP strong scaling: the speedup is almost linear up to 32 threads.
-        \item OpenMP weak scaling: the speedup is almost linear up to 32 threads.
+        \item MPI scaling shows an expected behavior for both strong and weak scaling
+        \item OpenMP strong scaling shows that, after 20 threads, we reach a bottleneck
     \end{itemize}
+     
+    OpenMP issues:
+    \begin{itemize}
+        \item load imbalance: some threads take more time to compute the pixels
+        \item not enough work assigned to the threads: overhead $>$ computation time
+        \item false sharing not excluded
+    \end{itemize}
+
+    Improvements:
+    \begin{itemize}
+        \item smarter load balancing strategy (e.g. assign less computational resources to pixels that are likely to diverge)
+        \item exploit symmetries
+        \item exploit compiler optimizations
+    \end{itemize}
+
 \end{frame}
 
 
