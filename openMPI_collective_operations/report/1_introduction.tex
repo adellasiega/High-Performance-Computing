@@ -93,7 +93,7 @@ The reduce operation \texttt{MPI\_Reduce} combines the elements provided in the 
 
 The algorithms that are considered in this analysis are:
 \begin{itemize}
-    \item \textbf{basic linear }, the root process receives the message from all the other process and reduces the messages;
+    \item \textbf{basic linear}, the root process receives the message from all the other process and reduces the messages;
     \item \textbf{chain}, if we order the processes with respect to their rank, each process sends the message to the next process, each process receives the message from the previous process and reduces the messages;
-    \item \textbf{binary tree }, suppose that each process is a node of a binary tree and the root node is the root process. Each parent node receives the message from its children and reduces the received messages passing the result to its parent node.
+    \item \textbf{binary tree}, suppose that each process is a node of a binary tree and the root node is the root process. Each parent node receives the message from its children and reduces the received messages passing the result to its parent node.
 \end{itemize}

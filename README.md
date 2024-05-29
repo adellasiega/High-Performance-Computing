@@ -21,6 +21,8 @@ This repository contains code and resources related to High-Performance Computin
 
 3. `pdf` files of the two projects
 
+4. `presentation` contains the presentation of the projects
+
 ## Author
 Alessandro Della Siega
 
