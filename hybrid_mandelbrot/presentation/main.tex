@@ -193,26 +193,23 @@
     \frametitle{Conclusions}
     \begin{itemize}
         \item MPI scaling shows an expected behavior for both strong and weak scaling
-        \item OpenMP strong scaling shows that, after 20 threads, we reach a bottleneck
+        \item OpenMP strong scaling shows that we reach a bottleneck
     \end{itemize}
      
     OpenMP issues:
     \begin{itemize}
-        \item load imbalance: some threads take more time to compute the pixels
-        \item not enough work assigned to the threads: overhead $>$ computation time
-        \item false sharing not excluded
+        \item load imbalance
+        \item false sharing
     \end{itemize}
 
     Improvements:
     \begin{itemize}
-        \item smarter load balancing strategy (e.g. assign less computational resources to pixels that are likely to diverge)
+        \item smarter load balancing strategy
         \item exploit symmetries
         \item exploit compiler optimizations
     \end{itemize}
 
 \end{frame}
-
-
 
 
 
